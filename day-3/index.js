@@ -34,20 +34,33 @@ Total = 4361;
 
 function day3(matrix = lines) {
     let sum = 0;
+    const symbols = ['*', '#', '$'];
 
     for (let i = 0; i < matrix.length; i++) {
         let currNumStr = '';
+
         for (let j = 0; j < matrix[i].length; j++) {
-            const curr = matrix[i][j]
+            const curr = matrix[i][j];
+
             if (!isNaN(parseInt(curr))) {
-                currNumStr += curr
+                currNumStr += curr;
+            } else if (currNumStr.length > 0) {
+                // If a non-digit is encountered, convert and add the current number
+                sum += parseInt(currNumStr);
+                console.log(`Added ${parseInt(currNumStr)} to sum`);
+                currNumStr = ''; // Reset the current number string
             }
         }
-        console.log(currNumStr)
+
+        // Check if there's a remaining number at the end of the row
+        if (currNumStr.length > 0) {
+            sum += parseInt(currNumStr);
+            console.log(`Added remaining ${parseInt(currNumStr)} to sum`);
+        }
     }
 
-
-
+    return sum;
 }
 
-console.log(day3())
+
+console.log(day3());
